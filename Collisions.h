@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "Entity.h"
 #include "Tile.h"
+#include "Player.h"
 
 #include <vector>
 
@@ -23,7 +24,7 @@ public:
 
 	void update();
 
-	void setPlayer(Entity& player);
+	void setPlayer(Player& player);
 	void setTiles(std::vector<Tile>& tiles);
 	void setEntities(std::vector<Entity>& entities);
 };

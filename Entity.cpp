@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include <iostream>
+
 Entity::Entity() : timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
 {
 	position = Vector2();
@@ -23,6 +25,22 @@ Entity::Entity(AnimationList& Alist) : AList(AList), timer(0), frame(0), gravity
 	direction = Vector2();
 }
 
+Entity::Entity(const Entity& copy)
+{
+	this->timer = copy.timer;
+	this->frame = copy.frame;
+	this->gravity = copy.gravity;
+	this->horizontalSpeed = copy.horizontalSpeed;
+	this->speed = copy.speed;
+	this->onGround = copy.onGround;
+	this->onPlataform = copy.onPlataform;
+	this->position = copy.position;
+	this->AList = copy.AList;
+	this->direction = copy.direction;
+}
+
+
+
 void Entity::setSpeed(float& speed)
 {
 	this->speed = speed;
@@ -33,6 +51,7 @@ Vector2 Entity::getPosition() const
 	int height = AList.getAnimation(0).getTexture().height;
 	Vector2 pos = { position.x, position.y + height };
 	return pos;
+	//return position;
 }
 
 float Entity::getSpeed() const
@@ -49,6 +68,8 @@ void Entity::setPos(Vector2& nPos)
 {
 	Vector2 newPos{nPos.x, nPos.y - AList.getAnimation(0).getTexture().height};
 	this->position = newPos;
+	/*Vector2 npos = { nPos.x, nPos.y };
+	this->position = npos;*/
 }
 
 bool Entity::getOnground() const
@@ -68,9 +89,10 @@ void Entity::setOnPlataform(int onPlat)
 
 void Entity::notOnPlatafrom()
 {
-	position.y += speed * GetFrameTime();
-	speed += gravity * GetFrameTime();
+	this->position.y += speed * GetFrameTime();
+	this->speed += gravity * GetFrameTime();
 	//setOnground(false);
+
 }
 
 void Entity::moveEntity()
@@ -114,6 +136,7 @@ void Entity::update()
 {
 	moveEntity();
 	animateEntity();
+	//checkCollision();
 }
 
 bool Entity::isMoving() const
@@ -136,4 +159,25 @@ void Entity::setList(AnimationList& nList)
 void Entity::setPosition(Vector2& position)
 {
 	this->position = position;
+}
+
+void Entity::unload()
+{
+	AList.unloadText();
+}
+
+void Entity::setTiles(std::vector<Tile> tiles)
+{
+	this->tiles.operator=(tiles);
+}
+
+
+AnimationList Entity::getList() const
+{
+	return AList;
+}
+
+Entity::~Entity()
+{
+	//unload();
 }

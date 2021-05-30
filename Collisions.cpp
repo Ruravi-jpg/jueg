@@ -54,25 +54,24 @@ void Collisions::calColl()
 
 	}*/
 
-
 	for (Tile& tile : tiles)
 	{
-		for (Entity* entity: entities)
+		for (int i = 0; i < entities.size(); i++)
 		{
-			Vector2 playerPos = entity->getPosition();
+			Vector2 playerPos = { entities[i]->getPosition().x, entities[i]->getPosition().y };
 			float zero = 0;
-			entity->setOnPlataform(0);
+			entities[i]->setOnPlataform(0);
 
 			if (tile.getRect().x <= playerPos.x and
 				tile.getRect().x + tile.getRect().width >= playerPos.x and
 				tile.getRect().y >= playerPos.y and
-				tile.getRect().y < playerPos.y + entity->getSpeed() * GetFrameTime() and (entity->getOnPlataform() == 0))
+				tile.getRect().y < playerPos.y + entities[i]->getSpeed() * GetFrameTime() and (entities[i]->getOnPlataform() == 0))
 			{
 				Vector2 nPos = { playerPos.x, tile.getRect().y };
-				entity->setSpeed(zero);
-				entity->setPos(nPos);
-				entity->setOnground(true);
-				entity->setOnPlataform(1);
+				entities[i]->setSpeed(zero);
+				entities[i]->setPos(nPos);
+				entities[i]->setOnground(true);
+				entities[i]->setOnPlataform(1);
 
 			}
 		}
@@ -80,11 +79,10 @@ void Collisions::calColl()
 	}
 
 
-	for (Entity* entity : entities)
+	for (int i = 0; i < entities.size(); i++)
 	{
-		if (entity->getOnPlataform() == 0) {
-			entity->notOnPlatafrom();
-
+		if (entities[i]->getOnPlataform() == 0) {
+			entities[i]->notOnPlatafrom();
 		}
 	}
 	
@@ -93,12 +91,13 @@ void Collisions::calColl()
 void Collisions::update()
 {
 	drawColl();
-	calColl();
+	//calColl();
 }
 
-void Collisions::setPlayer(Entity& player)
+void Collisions::setPlayer(Player& player)
 {
-	this->entity = &player;
+	//this->entity = &player;
+	//this->entities.push_back(&player);
 }
 
 void Collisions::setTiles(std::vector<Tile>& tiles)

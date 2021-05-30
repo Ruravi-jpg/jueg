@@ -1,5 +1,6 @@
 #pragma once
 #include "AnimationList.h"
+#include "Tile.h"
 
 enum class AnimationState
 {
@@ -23,11 +24,16 @@ protected:
 	bool onGround;
 	int onPlataform;
 
+	std::vector<Tile> tiles;
+
 public:
 	Entity();
 	Entity(Vector2& position, AnimationList& Alist);
 	Entity(Vector2& position, AnimationList& Alist, float& speed);
 	Entity(AnimationList& Alist);
+
+	Entity(const Entity& copy);
+
 
 	void setSpeed(float& speed);
 
@@ -60,5 +66,13 @@ public:
 	void setList(AnimationList& nList);
 
 	void setPosition(Vector2& position);
+
+	void unload();
+
+	void setTiles(std::vector<Tile> tiles);
+
+	AnimationList getList()const;
+
+	~Entity();
 };
 

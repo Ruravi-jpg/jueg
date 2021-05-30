@@ -10,7 +10,6 @@ class Player : public Entity
 private:
 	
 	int jumpSpeed;
-
 	bool moving;	
 
 	
@@ -23,6 +22,8 @@ public:
 	Player(Vector2 &position, AnimationList& list, float &speed);
 
 	void update();
+
+	void input();
 
 	void unloadPlayer();
 

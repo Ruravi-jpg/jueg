@@ -26,6 +26,8 @@ public:
 
 	Texture2D getTexture()const;
 
+	int getCols()const;
+
 	void unloadText();
 
 	int getWidthFrame()const;

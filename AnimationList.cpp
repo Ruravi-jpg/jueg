@@ -77,6 +77,11 @@ Texture2D AnimationSt::getTexture() const
 	return texture;
 }
 
+int AnimationSt::getCols() const
+{
+	return cols;
+}
+
 void AnimationSt::unloadText()
 {
 	UnloadTexture(texture);
