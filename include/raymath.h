@@ -103,7 +103,7 @@
 #if defined(RAYMATH_STANDALONE)
     // Vector2 type
     typedef struct Vector2 {
-        float x;
+        float ;
         float y;
     } Vector2;
 

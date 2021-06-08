@@ -6,6 +6,7 @@
 #include "Collisions.h"
 #include "Tile.h"
 #include "Enemy.h"
+#include "LevelLoader.h"
 
 #include <vector>
 

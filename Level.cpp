@@ -39,9 +39,13 @@ void Level::setLevelData(Player& player, std::vector<Enemy>& enemies, std::vecto
 {
 	setPlayer(player);
 	setEnemies(enemies);
-	setTiles(tiles);
+	//setTiles(tiles);
+
+	LevelLoader::loadData(this->id);
+	setTiles(LevelLoader::get().tiles);
 
 	entities.push_back(&player);
+	//std::cout << "pushin player with id: " << player.getId() << std::endl;
 	for (int i = 0; i < enemies.size(); i++) {
 		entities.push_back(&enemies[i]);
 	}
@@ -85,21 +89,27 @@ void Level::unloadData()
 
 void Level::checkColl()
 {
-	for (Tile& tile : tiles)
-	{
+	
 		
-		for ( int i = 0; i < entities.size(); i++)
-		{
-			Vector2 playerPos = { entities[i]->getPosition().x, entities[i]->getPosition().y };
-			float zero = 0;
-			entities[i]->setOnPlataform(0);
+	for ( int i = 0; i < entities.size(); i++)
+	{
+		Vector2 entityPos = entities[i]->getPosition();
+		float zero = 0;
+		entities[i]->setOnPlataform(0);
 
-			if (tile.getRect().x - (entities[i]->getList().getAnimation(0).getTexture().width / entities[i]->getList().getAnimation(0).getCols()) / 2 <= playerPos.x and
-				tile.getRect().x + tile.getRect().width >= playerPos.x and
-				tile.getRect().y >= playerPos.y and
-				tile.getRect().y < playerPos.y + entities[i]->getSpeed() * GetFrameTime() and (entities[i]->getOnPlataform() == 0))
+		int entityWidth = (entities[i]->getList().getAnimation(0).getTexture().width / entities[i]->getList().getAnimation(0).getCols())/2;
+
+		for (Tile& tile : tiles)
+		{
+			int tileWidth = tile.getRect().width;
+			
+			if (tile.getRect().x - entityWidth <= entityPos.x and
+				tile.getRect().x + tileWidth >= entityPos.x
+				and
+				tile.getRect().y >= entityPos.y and
+				tile.getRect().y < entityPos.y + entities[i]->getSpeed() * GetFrameTime() and (entities[i]->getOnPlataform() == 0))
 			{
-				Vector2 nPos = { playerPos.x, tile.getRect().y };
+				Vector2 nPos = { entityPos.x, tile.getRect().y };
 				entities[i]->setSpeed(zero);
 				entities[i]->setPos(nPos);
 				entities[i]->setOnground(true);
@@ -108,6 +118,18 @@ void Level::checkColl()
 			}
 		}
 
+		if (entities[i]->getId() == 1) {
+			int entityHeight = (entities[i]->getList().getAnimation(0).getTexture().height / entities[i]->getList().getAnimation(0).getRows()) / 2;
+
+			if (entities[i]->getPosition().x - entityWidth <= player->getPosition().x and
+				entityPos.x + entityWidth >= player->getPosition().x
+				and
+				entities[i]->getPosition().y - entityHeight <= player->getPosition().y and
+				entityPos.y + entityHeight >= player->getPosition().y) {
+
+					std::cout << "colliding with enemy " << i << std::endl;
+			}
+		}
 
 	}
 	for (int i = 0; i < entities.size(); i++)

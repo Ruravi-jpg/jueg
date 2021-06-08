@@ -2,24 +2,24 @@
 
 #include <iostream>
 
-Entity::Entity() : timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
+Entity::Entity() : timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0), id(-1)
 {
 	position = Vector2();
 	AList = AnimationList();
 	direction = Vector2();
 }
 
-Entity::Entity(Vector2& position, AnimationList& Alist) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
+Entity::Entity(Vector2& position, AnimationList& Alist, int &id) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
 {
 	direction = Vector2();
 }
 
-Entity::Entity(Vector2& position, AnimationList& Alist, float& speed) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(speed), onGround(false), onPlataform(0)
+Entity::Entity(Vector2& position, AnimationList& Alist, float& speed, int& id) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(speed), onGround(false), onPlataform(0)
 {
 	direction = Vector2();
 }
 
-Entity::Entity(AnimationList& Alist) : AList(AList), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
+Entity::Entity(AnimationList& Alist, int& id) : AList(AList), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
 {
 	position = Vector2();
 	direction = Vector2();
@@ -175,6 +175,16 @@ void Entity::setTiles(std::vector<Tile> tiles)
 AnimationList Entity::getList() const
 {
 	return AList;
+}
+
+int Entity::getId() const
+{
+	return id;
+}
+
+void Entity::setId(int& id)
+{
+	this->id = id;
 }
 
 Entity::~Entity()

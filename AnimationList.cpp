@@ -82,6 +82,11 @@ int AnimationSt::getCols() const
 	return cols;
 }
 
+int AnimationSt::getRows() const
+{
+	return rows;
+}
+
 void AnimationSt::unloadText()
 {
 	UnloadTexture(texture);

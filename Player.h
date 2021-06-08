@@ -12,14 +12,12 @@ private:
 	int jumpSpeed;
 	bool moving;	
 
-	
-	
-
 public:
 	Player();
-	Player(AnimationList& list);
-	Player(Vector2 &position, AnimationList& list);
-	Player(Vector2 &position, AnimationList& list, float &speed);
+	Player(int& id);
+	Player(AnimationList& list, int& id);
+	Player(Vector2 &position, AnimationList& list, int& id);
+	Player(Vector2 &position, AnimationList& list, float &speed, int& id);
 
 	void update();
 

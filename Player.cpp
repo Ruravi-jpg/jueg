@@ -5,18 +5,17 @@
 
 
 
-Player::Player(AnimationList& list): moving(false), jumpSpeed(450), Entity(list)
+Player::Player(AnimationList& list, int& id): moving(false), jumpSpeed(450), Entity(list, id)
 {
 	state = AnimationState::Idle;
 }
 
-Player::Player(Vector2& position, AnimationList& list) : moving(false), jumpSpeed(450), Entity(position, list)
+Player::Player(Vector2& position, AnimationList& list, int& id) : moving(false), jumpSpeed(450), Entity(position, list, id)
 {
-
 	state = AnimationState::Idle;
 }
 
-Player::Player(Vector2& position, AnimationList& list, float& speed): moving(false), jumpSpeed(450), Entity(position, list, speed)
+Player::Player(Vector2& position, AnimationList& list, float& speed, int& id): moving(false), jumpSpeed(450), Entity(position, list, speed, id)
 {
 	state = AnimationState::Idle;
 }
@@ -57,9 +56,9 @@ void Player::input()
 
 Player::Player() : moving(false), jumpSpeed(450), Entity()
 {
-	
-
+    id = 0;
 }
+
 
 
 void Player::unloadPlayer()

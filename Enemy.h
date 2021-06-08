@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Entity.h"
 class Enemy : public Entity
 {

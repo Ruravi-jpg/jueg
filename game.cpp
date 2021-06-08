@@ -10,6 +10,10 @@
 #include "Tile.h"
 #include "Collisions.h"
 #include "Level.h"
+#include "LevelLoader.h"
+
+
+//#include "LevelLoader.h"
 
 #define MAX_FRAME_SPEED     15
 #define MIN_FRAME_SPEED      1
@@ -49,8 +53,8 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [texture] example - texture rectangle");
 
     Player player;
+    
     Enemy enemy, enemy2, enemy3;
-
 
     //initGame(player, coll, enemy);
     //initGame(coll, entities);
@@ -81,6 +85,10 @@ int main(void)
     Vector2 positionEn3 = { 280, 260 };
     enemies[2].setPos(positionEn3);
 
+    for (int i = 0; i < enemies.size(); i++) {
+        int id = 1;
+        enemies[i].setId(id);
+    }
 
     level1.setLevelData(player, enemies, tiles);
 
