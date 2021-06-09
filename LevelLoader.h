@@ -25,6 +25,7 @@ public:
 	static LevelLoader& get();
 
 	static void loadData(int &id);
+	void unloadData();
 
 	std::vector<Tile> tiles;
 	std::vector<Enemy> enemies;

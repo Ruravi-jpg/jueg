@@ -25,10 +25,14 @@ private:
 	
 	Player* player;
 
+	bool isUnloading;
+
 
 	public:
-		Level(int id);
+		Level(int &id);
+		~Level();
 
+		void loadLevel(int& id);
 		void setId(int id);
 		void setPlayer(Player& player);
 		void setEnemies(std::vector<Enemy>& enemies);
@@ -45,6 +49,8 @@ private:
 		void unloadData();
 
 		void checkColl();
+
+		void unloadLevelData();
 
 
 

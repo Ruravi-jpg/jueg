@@ -224,3 +224,9 @@ void LevelLoader::loadPlayerLevel(int& id)
 	player.setPosition(playerPos);
 	file.close();
 }
+
+void LevelLoader::unloadData()
+{
+	tiles.clear();
+	enemies.clear();
+}

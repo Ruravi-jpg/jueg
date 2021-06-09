@@ -33,8 +33,11 @@ int main(void)
     const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "raylib [texture] example - texture rectangle");
-    
-    Level level1(1);
+    int one = 1;
+    int two = 2;
+
+    Level level1(one);
+    LevelLoader& test = LevelLoader::get();
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -46,6 +49,10 @@ int main(void)
         //----------------------------------------------------------------------------------
 
         getCoor();
+
+        if (IsKeyPressed(KEY_A)) {
+            level1.loadLevel(two);
+        }
 
          // Draw
          //----------------------------------------------------------------------------------

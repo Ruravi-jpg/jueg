@@ -2,7 +2,7 @@
 
 
 
-Level::Level(int id) : id(id)
+Level::Level(int &id) : id(id), isUnloading(false)
 {
 	this->player = nullptr;
 	this->enemies = std::vector<Enemy*>();
@@ -11,6 +11,18 @@ Level::Level(int id) : id(id)
 
 	setLevelData();
 
+}
+
+Level::~Level()
+{
+}
+
+void Level::loadLevel(int& id)
+{
+	unloadLevelData();
+	this->id = id;
+	setLevelData();
+	this->isUnloading = false;
 }
 
 void Level::setId(int id)
@@ -72,6 +84,9 @@ int Level::getId() const
 
 void Level::drawLevel()
 {
+	if (isUnloading) {
+		return;
+	}
 	
 	for (int i = 0; i < enemies.size(); i++) {
 		enemies[i]->update();
@@ -142,6 +157,16 @@ void Level::checkColl()
 			entities[i]->notOnPlatafrom();
 		}
 	}
+}
+
+void Level::unloadLevelData()
+{
+	isUnloading = true;
+	tiles.clear();
+	enemies.clear();
+	entities.clear();
+	LevelLoader::get().unloadData();
+
 }
 
 
