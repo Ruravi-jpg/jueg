@@ -9,17 +9,17 @@ Entity::Entity() : timer(0), frame(0), gravity(800), horizontalSpeed(250), speed
 	direction = Vector2();
 }
 
-Entity::Entity(Vector2& position, AnimationList& Alist, int &id) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
+Entity::Entity(Vector2& position, AnimationList& Alist, int &id) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0), id(-1)
 {
 	direction = Vector2();
 }
 
-Entity::Entity(Vector2& position, AnimationList& Alist, float& speed, int& id) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(speed), onGround(false), onPlataform(0)
+Entity::Entity(Vector2& position, AnimationList& Alist, float& speed, int& id) : position(position), AList(Alist), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(speed), onGround(false), onPlataform(0), id(-1)
 {
 	direction = Vector2();
 }
 
-Entity::Entity(AnimationList& Alist, int& id) : AList(AList), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0)
+Entity::Entity(AnimationList& Alist, int& id) : AList(AList), timer(0), frame(0), gravity(800), horizontalSpeed(250), speed(5), onGround(false), onPlataform(0), id(-1)
 {
 	position = Vector2();
 	direction = Vector2();
@@ -102,9 +102,9 @@ void Entity::moveEntity()
 
 void Entity::animateEntity()
 {
-	int walk = 0;
-	int idle = 1;
-	int jump = 2;
+	int walk = 2;
+	int idle = 0;
+	int jump = 1;
 	if (isMoving())
 	{
 		state = AnimationState::Walking;

@@ -9,6 +9,8 @@ Level::Level(int id) : id(id)
 	this->tiles = std::vector<Tile>();
 	this->entities = std::vector<Entity*>();
 
+	setLevelData();
+
 }
 
 void Level::setId(int id)
@@ -23,7 +25,9 @@ void Level::setPlayer(Player& player)
 
 void Level::setEnemies(std::vector<Enemy>& enemies)
 {
+	int id = 1;
 	for (int i = 0; i < enemies.size(); i++) {
+		enemies[i].setId(id);
 		this->enemies.push_back(&enemies[i]);
 	}
 }
@@ -35,19 +39,21 @@ void Level::setTiles(std::vector<Tile>& tiles)
 	}
 }
 
-void Level::setLevelData(Player& player, std::vector<Enemy>& enemies, std::vector<Tile>& tiles)
+void Level::setLevelData()
 {
-	setPlayer(player);
-	setEnemies(enemies);
+	//setPlayer(player);
+	//setEnemies(enemies);
 	//setTiles(tiles);
 
 	LevelLoader::loadData(this->id);
+	setPlayer(LevelLoader::get().player);
 	setTiles(LevelLoader::get().tiles);
+	setEnemies(LevelLoader::get().enemies);
 
-	entities.push_back(&player);
+	entities.push_back(this->player);
 	//std::cout << "pushin player with id: " << player.getId() << std::endl;
 	for (int i = 0; i < enemies.size(); i++) {
-		entities.push_back(&enemies[i]);
+		entities.push_back(this->enemies[i]);
 	}
 
 }
@@ -126,8 +132,6 @@ void Level::checkColl()
 				and
 				entities[i]->getPosition().y - entityHeight <= player->getPosition().y and
 				entityPos.y + entityHeight >= player->getPosition().y) {
-
-					std::cout << "colliding with enemy " << i << std::endl;
 			}
 		}
 

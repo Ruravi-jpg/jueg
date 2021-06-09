@@ -1,0 +1,22 @@
+{
+	"AnimationInfo":{
+		"Walk":{
+			"Texture":"Textures/PlayerTexture/Walk.png",
+			"Col": 3,
+			"Rows": 1,
+			"Speed": 8
+		},
+		"Idle":{
+			"Texture":"Textures/PlayerTexture/Idle.png",
+			"Col": 4,
+			"Rows": 1,
+			"Speed": 6
+		},
+		"Jump":{
+			"Texture":"Textures/PlayerTexture/Jump.png",
+			"Col": 1,
+			"Rows": 1,
+			"Speed": 8
+		}
+	}
+}

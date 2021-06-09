@@ -34,7 +34,7 @@ private:
 		void setEnemies(std::vector<Enemy>& enemies);
 		void setTiles(std::vector<Tile>& tiles);
 
-		void setLevelData(Player& player, std::vector<Enemy>& enemies, std::vector<Tile>& tiles);
+		void setLevelData();
 
 		void drawTiles();
 
