@@ -134,7 +134,9 @@ void Entity::animateEntity()
 
 void Entity::update()
 {
+
 	moveEntity();
+	updateHitbox();
 	animateEntity();
 	//checkCollision();
 }
@@ -149,6 +151,11 @@ bool Entity::isMoving() const
 void Entity::setDirection(Vector2& nDir)
 {
 	this->direction = nDir;
+}
+
+Vector2 Entity::getDirection() const
+{
+	return direction;
 }
 
 void Entity::setList(AnimationList& nList)
@@ -166,12 +173,6 @@ void Entity::unload()
 	AList.unloadText();
 }
 
-void Entity::setTiles(std::vector<Tile> tiles)
-{
-	this->tiles.operator=(tiles);
-}
-
-
 AnimationList Entity::getList() const
 {
 	return AList;
@@ -185,6 +186,19 @@ int Entity::getId() const
 void Entity::setId(int& id)
 {
 	this->id = id;
+}
+
+void Entity::updateHitbox()
+{
+	int entityWidth = (getList().getAnimation(0).getTexture().width / getList().getAnimation(0).getCols()) / 2;
+	int entituHeight = (getList().getAnimation(0).getTexture().height);
+
+	this->hitbox = { float(getPosition().x), float(getPosition().y), float(entityWidth), float(entituHeight) };
+}
+
+Rectangle Entity::getHitbox() const
+{
+	return hitbox;
 }
 
 Entity::~Entity()

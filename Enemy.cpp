@@ -6,24 +6,25 @@ Enemy::Enemy() : Entity(), timer(0), timeToCh(1)
 	horizontalSpeed = 100;
 	Vector2 left = { -1,0 };
 	direction = left;
-	std::cout << "created enemy with id " << this->id << std::endl;
+	//std::cout << "created enemy with id " << this->id << std::endl;
 }
 
 void Enemy::update() 
 {
 	moveEntity();
 	moveEnemy();
+	updateHitbox();
 	animateEntity();
 	//checkCollision();
 }
 
 void Enemy::moveEnemy()
 {
-	timer += GetFrameTime();
+	/*timer += GetFrameTime();
 
 	if (timer >= timeToCh) {
 		timer = 0;
 		Vector2 ndir = { -direction.x, 0 };
 		setDirection(ndir);
-	}
+	}*/
 }

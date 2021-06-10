@@ -25,7 +25,7 @@ protected:
 	bool onGround;
 	int onPlataform;
 
-	std::vector<Tile> tiles;
+	Rectangle hitbox;
 
 public:
 	Entity();
@@ -64,19 +64,24 @@ public:
 
 	void setDirection(Vector2& nDir);
 
+	Vector2 getDirection()const;
+
 	void setList(AnimationList& nList);
 
 	void setPosition(Vector2& position);
 
 	void unload();
 
-	void setTiles(std::vector<Tile> tiles);
-
 	AnimationList getList()const;
 
 	int getId()const;
 
 	void setId(int& id);
+
+	void updateHitbox();
+
+	Rectangle getHitbox()const;
+
 
 	~Entity();
 };

@@ -25,7 +25,9 @@ void Player::update()
 {
 	input();
 	moveEntity();
+    updateHitbox();
 	animateEntity();
+    
     //checkCollision();
 }
 

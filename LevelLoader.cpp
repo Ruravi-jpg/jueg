@@ -22,6 +22,7 @@ void LevelLoader::IloadData(int& id)
 LevelLoader::LevelLoader()
 {
 	tiles =  std::vector<Tile>();
+	enemies = std::vector<Enemy>();
 	player = Player();
 	enemy = Enemy();
 	loadPlayerBase();
@@ -47,7 +48,7 @@ void LevelLoader::loadTiles(int& id)
 		json auxJson = Info["Tiles"][tile.str()];
 
 		Rectangle auxRec = { auxJson["x"], auxJson["y"], auxJson["Width"], auxJson["Height"] };
-		Tile auxTile = { auxRec, 1, LIGHTGRAY };
+		Tile auxTile = { auxRec, 1, LIGHTGRAY , i};
 
 		this->tiles.push_back(auxTile);
 
@@ -104,6 +105,7 @@ void LevelLoader::loadEnemiesbase()
 	enemy.setList(playerAnimationsList);
 
 	file.close();
+
 }
 
 void LevelLoader::loadEnemiesLevel(int &id)
@@ -118,8 +120,8 @@ void LevelLoader::loadEnemiesLevel(int &id)
 	file >> Info;
 
 	json enemyInfoLevel = Info["Enemies"];
-	int Enemyx;
-	int EnemyY;
+	int Enemyx(0);
+	int EnemyY(0);
 	int idEnemy = 1;
 
 	for (json::iterator it = enemyInfoLevel.begin(); it != enemyInfoLevel.end(); it++) {
@@ -140,8 +142,13 @@ void LevelLoader::loadEnemiesLevel(int &id)
 		auxEnemy.setList(list);
 		Vector2 enemyPos = { Enemyx, EnemyY };
 		auxEnemy.setPosition(enemyPos);
-		auxEnemy.setId(idEnemy);
 		this->enemies.push_back(auxEnemy);
+
+	}
+
+	for (int i = 0; i < enemies.size(); i++) {
+		enemies[i].setId(idEnemy);
+		std::cout << "Ading enemy with id: " << enemies[i].getId() << std::endl;
 	}
 	
 	file.close();
@@ -209,8 +216,8 @@ void LevelLoader::loadPlayerLevel(int& id)
 	file >> Info;
 
 	json playerInfoLevel = Info["Player"];
-	int playerX;
-	int playerY;
+	int playerX(0);
+	int playerY(0);
 
 	for (json::iterator it = playerInfoLevel.begin(); it != playerInfoLevel.end(); it++) {
 		if (it.key() == "x") {

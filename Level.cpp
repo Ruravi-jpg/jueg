@@ -39,7 +39,7 @@ void Level::setEnemies(std::vector<Enemy>& enemies)
 {
 	int id = 1;
 	for (int i = 0; i < enemies.size(); i++) {
-		enemies[i].setId(id);
+		//enemies[i].setId(id);
 		this->enemies.push_back(&enemies[i]);
 	}
 }
@@ -63,7 +63,6 @@ void Level::setLevelData()
 	setEnemies(LevelLoader::get().enemies);
 
 	entities.push_back(this->player);
-	//std::cout << "pushin player with id: " << player.getId() << std::endl;
 	for (int i = 0; i < enemies.size(); i++) {
 		entities.push_back(this->enemies[i]);
 	}
@@ -119,12 +118,17 @@ void Level::checkColl()
 		entities[i]->setOnPlataform(0);
 
 		int entityWidth = (entities[i]->getList().getAnimation(0).getTexture().width / entities[i]->getList().getAnimation(0).getCols())/2;
+		/*int entituHeight = (entities[i]->getList().getAnimation(0).getTexture().height);
+
+		Rectangle hitbox = { float(entities[i]->getPosition().x), float(entities[i]->getPosition().y), float(entityWidth), float(entituHeight) };*/
+
+		//DrawRectangle(test.x, test.y - test.height, test.width*2, test.height, GREEN);
 
 		for (Tile& tile : tiles)
 		{
 			int tileWidth = tile.getRect().width;
 			
-			if (tile.getRect().x - entityWidth <= entityPos.x and
+			if ( tile.getRect().x - entityWidth <= entityPos.x and
 				tile.getRect().x + tileWidth >= entityPos.x
 				and
 				tile.getRect().y >= entityPos.y and
@@ -137,6 +141,16 @@ void Level::checkColl()
 				entities[i]->setOnPlataform(1);
 
 			}
+
+			if (entities[i]->getId() == 1 and (CheckCollisionRecs(entities[i]->getHitbox(), tile.getRect()) ) and (tile.getRect().x  >= entities[i]->getHitbox().x or
+				
+				(entities[i]->getHitbox().x+ entities[i]->getHitbox().width) >= tile.getRect().x+tile.getRect().width ))
+			{
+				int tilepos = tile.getRect().y;
+				Vector2 ndir = { -entities[i]->getDirection().x, 0 };
+				entities[i]->setDirection(ndir);				
+			}
+
 		}
 
 		if (entities[i]->getId() == 1) {
@@ -147,8 +161,11 @@ void Level::checkColl()
 				and
 				entities[i]->getPosition().y - entityHeight <= player->getPosition().y and
 				entityPos.y + entityHeight >= player->getPosition().y) {
+				
 			}
 		}
+
+		
 
 	}
 	for (int i = 0; i < entities.size(); i++)
