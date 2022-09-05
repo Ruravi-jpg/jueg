@@ -19,6 +19,11 @@ void LevelLoader::IloadData(int& id)
 
 }
 
+Player& LevelLoader::IGetPlayer()
+{
+	return player;
+}
+
 LevelLoader::LevelLoader()
 {
 	tiles =  std::vector<Tile>();
@@ -27,6 +32,7 @@ LevelLoader::LevelLoader()
 	enemy = Enemy();
 	loadPlayerBase();
 	loadEnemiesbase();
+	std::cout << player.getHealth() << std::endl;
 }
 
 void LevelLoader::loadTiles(int& id)
@@ -199,9 +205,12 @@ void LevelLoader::loadPlayerBase()
 	}
 	AnimationList playerAnimationsList(playerAnimations);
 	player.setList(playerAnimationsList);
+	
+
 
 	file.close();
 
+	
 }
 
 void LevelLoader::loadPlayerLevel(int& id)
@@ -236,4 +245,10 @@ void LevelLoader::unloadData()
 {
 	tiles.clear();
 	enemies.clear();
+}
+
+Player& LevelLoader::getDataPlayer()
+{
+	std::cout << "Reading player" << std::endl;
+	return get().IGetPlayer();
 }

@@ -26,6 +26,7 @@ public:
 
 	static void loadData(int &id);
 	void unloadData();
+	Player& getDataPlayer();
 
 	std::vector<Tile> tiles;
 	std::vector<Enemy> enemies;
@@ -35,6 +36,7 @@ public:
 
 private:
 	void IloadData(int& id);
+	Player& IGetPlayer();
 	LevelLoader();
 	void loadTiles(int &id);
 	void loadEnemiesbase();

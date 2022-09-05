@@ -12,6 +12,8 @@
 #include "Level.h"
 #include "LevelLoader.h"
 
+#include "Ui.h";
+
 
 //#include "LevelLoader.h"
 
@@ -61,6 +63,7 @@ int main(void)
         ClearBackground(RAYWHITE);
 
         level1.drawLevel();
+        Ui::get().drawPlayerData();
 
         DrawFPS(10, 10);
 

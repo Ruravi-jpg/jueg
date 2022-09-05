@@ -96,6 +96,10 @@ void Level::drawLevel()
 	drawTiles();
 	checkColl();
 
+	if (IsKeyPressed(KEY_T)) {
+		player->setHealth(3);
+	}
+
 
 }
 
@@ -156,12 +160,8 @@ void Level::checkColl()
 		if (entities[i]->getId() == 1) {
 			int entityHeight = (entities[i]->getList().getAnimation(0).getTexture().height / entities[i]->getList().getAnimation(0).getRows()) / 2;
 
-			if (entities[i]->getPosition().x - entityWidth <= player->getPosition().x and
-				entityPos.x + entityWidth >= player->getPosition().x
-				and
-				entities[i]->getPosition().y - entityHeight <= player->getPosition().y and
-				entityPos.y + entityHeight >= player->getPosition().y) {
-				
+			if (CheckCollisionRecs(entities[i]->getHitbox(), player->getHitbox())){
+				//std::cout << "collision" << std::endl;
 			}
 		}
 
